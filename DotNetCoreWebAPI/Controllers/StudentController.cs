@@ -84,7 +84,7 @@ namespace DotNetCoreWebAPI.Controllers
             return NotFound($"Student with Id:{st.ID} was not found");
         }
 
-        [Route("api/students-descending")]
+        [Route("api/students-ascending")]
         [HttpGet]
         public IActionResult GetListStudentDescending()
         {
