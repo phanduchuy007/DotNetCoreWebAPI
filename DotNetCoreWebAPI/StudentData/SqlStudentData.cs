@@ -36,7 +36,6 @@ namespace DotNetCoreWebAPI.StudentData
                 existingStudent.Name = student.Name;
                 existingStudent.Email = student.Email;
                 existingStudent.Address = student.Address;
-                existingStudent.Mark = student.Mark;
                 _studentContext.tblStudent.Update(existingStudent);
                 _studentContext.SaveChanges();
             }

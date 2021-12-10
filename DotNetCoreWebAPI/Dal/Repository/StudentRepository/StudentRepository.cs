@@ -19,7 +19,7 @@ namespace DotNetCoreWebAPI.Dal.Repository
         public IEnumerable<Student> GetListStudentDescending()
         {
             var ListStudent = _studentContext.Set<Student>().ToList();
-            var student = ListStudent.OrderByDescending(st => st.Mark);
+            var student = ListStudent.OrderBy(st => st.Name);
             return student;
         }
 
@@ -28,7 +28,6 @@ namespace DotNetCoreWebAPI.Dal.Repository
             student.Name = studentUpdate.Name;
             student.Email = studentUpdate.Email;
             student.Address = studentUpdate.Address;
-            student.Mark = studentUpdate.Mark;
 
             _studentContext.Set<Student>().Update(student);
             _studentContext.SaveChanges();

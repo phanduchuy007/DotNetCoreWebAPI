@@ -37,7 +37,7 @@ namespace DotNetCoreWebAPI.Repository
 
         public List<T> Gets()
         {
-            return _studentContext.Set<T>().ToList();
+            return _studentContext.Set<T>().ToList();          
         }
     }
 }

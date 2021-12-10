@@ -15,16 +15,14 @@ namespace DotNetCoreWebAPI.StudentData
                 ID = 0,
                 Name = "Huy",
                 Address = "Binh Dinh",
-                Email = "huy@gmail.com",
-                Mark = 9.9
+                Email = "huy@gmail.com"
             },
             new Student()
             {
                 ID = 1,
                 Name = "Hoang",
                 Address = "Binh Dinh",
-                Email = "hoang@gmail.com",
-                Mark = 9.9
+                Email = "hoang@gmail.com"
             }
         };
 
