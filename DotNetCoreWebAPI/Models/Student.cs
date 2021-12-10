@@ -14,6 +14,6 @@ namespace DotNetCoreWebAPI.Models
         public string Name { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
-        public double Mark { get; set; }
+        public float Mark { get; set; }
     }
 }
