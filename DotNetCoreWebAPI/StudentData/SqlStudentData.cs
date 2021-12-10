@@ -30,13 +30,13 @@ namespace DotNetCoreWebAPI.StudentData
 
         public Student EditStudent(Student student)
         {
-            var existingStudent = _studentContext.tblStudent.Find(student.id);
+            var existingStudent = _studentContext.tblStudent.Find(student.ID);
             if (existingStudent != null)
             {
-                existingStudent.name = student.name;
-                existingStudent.email = student.email;
-                existingStudent.address = student.address;
-                existingStudent.mark = student.mark;
+                existingStudent.Name = student.Name;
+                existingStudent.Email = student.Email;
+                existingStudent.Address = student.Address;
+                existingStudent.Mark = student.Mark;
                 _studentContext.tblStudent.Update(existingStudent);
                 _studentContext.SaveChanges();
             }

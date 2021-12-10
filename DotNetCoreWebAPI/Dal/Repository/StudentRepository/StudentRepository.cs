@@ -19,16 +19,16 @@ namespace DotNetCoreWebAPI.Dal.Repository
         public IEnumerable<Student> GetListStudentDescending()
         {
             var ListStudent = _studentContext.Set<Student>().ToList();
-            var student = ListStudent.OrderByDescending(st => st.mark);
+            var student = ListStudent.OrderByDescending(st => st.Mark);
             return student;
         }
 
         public Student UpdateStudent(Student student, Student studentUpdate)
         {
-            student.name = studentUpdate.name;
-            student.email = studentUpdate.email;
-            student.address = studentUpdate.address;
-            student.mark = studentUpdate.mark;
+            student.Name = studentUpdate.Name;
+            student.Email = studentUpdate.Email;
+            student.Address = studentUpdate.Address;
+            student.Mark = studentUpdate.Mark;
 
             _studentContext.Set<Student>().Update(student);
             _studentContext.SaveChanges();

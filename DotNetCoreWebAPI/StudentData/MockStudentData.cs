@@ -12,19 +12,19 @@ namespace DotNetCoreWebAPI.StudentData
         {
             new Student()
             {
-                id = 0,
-                name = "Huy",
-                address = "Binh Dinh",
-                email = "huy@gmail.com",
-                mark = 9.9
+                ID = 0,
+                Name = "Huy",
+                Address = "Binh Dinh",
+                Email = "huy@gmail.com",
+                Mark = 9.9
             },
             new Student()
             {
-                id = 1,
-                name = "Hoang",
-                address = "Binh Dinh",
-                email = "hoang@gmail.com",
-                mark = 9.9
+                ID = 1,
+                Name = "Hoang",
+                Address = "Binh Dinh",
+                Email = "hoang@gmail.com",
+                Mark = 9.9
             }
         };
 
@@ -46,7 +46,7 @@ namespace DotNetCoreWebAPI.StudentData
 
         public Student GetStudent(int id)
         {
-            return students.SingleOrDefault(x => x.id == id);
+            return students.SingleOrDefault(x => x.ID == id);
         }
 
         public List<Student> GetStudents()

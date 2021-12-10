@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DotNetCoreWebAPI.Dal.Repository;
 using DotNetCoreWebAPI.Dal.Repository.Generic;
+using DotNetCoreWebAPI.Dal.Repository.SubjectjRepository;
 using DotNetCoreWebAPI.Models;
 using DotNetCoreWebAPI.Repository;
 using DotNetCoreWebAPI.StudentData;
@@ -36,6 +37,8 @@ namespace DotNetCoreWebAPI
             services.AddDbContextPool<StudentDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("StudentConnection")));
 
             services.AddScoped<IStudentRepository, StudentRepository>();
+
+            services.AddScoped<ISubjectsRepository, SubjectsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

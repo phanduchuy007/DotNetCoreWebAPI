@@ -7,9 +7,9 @@ namespace DotNetCoreWebAPI.Dal.Repository.Generic
 {
     public interface IRepository<T> where T :class
     {
-        T GetStudent(int id);
-        List<T> GetStudents();
-        T AddStudent(T obj);
-        void DeleteStudent(T obj);
+        T Get(int id);
+        List<T> Gets();
+        T Add(T obj);
+        void Delete(T obj);
     }
 }

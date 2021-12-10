@@ -13,5 +13,6 @@ namespace DotNetCoreWebAPI.Models
         }
 
         public DbSet<Student> tblStudent { get; set; }
+        public DbSet<Subjects> tblSubject { get; set; }
     }
 }

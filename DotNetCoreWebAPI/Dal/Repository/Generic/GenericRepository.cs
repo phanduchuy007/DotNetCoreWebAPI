@@ -17,25 +17,25 @@ namespace DotNetCoreWebAPI.Repository
             _studentContext = studentContext;
         }
 
-        public T AddStudent(T obj)
+        public T Add(T obj)
         {
             _studentContext.Set<T>().Add(obj);
             _studentContext.SaveChanges();
             return obj;
         }
 
-        public void DeleteStudent(T obj)
+        public void Delete(T obj)
         {
             _studentContext.Set<T>().Remove(obj);
             _studentContext.SaveChanges();
         }
 
-        public T GetStudent(int id)
+        public T Get(int id)
         {
             return _studentContext.Set<T>().Find(id);
         }
 
-        public List<T> GetStudents()
+        public List<T> Gets()
         {
             return _studentContext.Set<T>().ToList();
         }

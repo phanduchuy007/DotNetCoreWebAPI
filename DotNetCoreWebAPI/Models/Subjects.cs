@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace DotNetCoreWebAPI.Models
 {
-    public class Student
+    public class Subjects
     {
         [Key]
         public int ID { get; set; }
-
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string Email { get; set; }
-        public double Mark { get; set; }
+        public int IDStudent { get; set; }
+        public string Subject { get; set; }
+        public string Teacher { get; set; }
+        public string Classroom { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DotNetCoreWebAPI.Dal.Repository;
 using DotNetCoreWebAPI.Dal.Repository.Generic;
+using DotNetCoreWebAPI.Dal.Repository.SubjectjRepository;
 using DotNetCoreWebAPI.Models;
 using DotNetCoreWebAPI.StudentData;
 using Microsoft.AspNetCore.Http;
@@ -15,10 +16,14 @@ namespace DotNetCoreWebAPI.Controllers
     public class StudentController : ControllerBase
     {
         // private IStudentData _studentData;
-        private IStudentRepository _repository;
-        public StudentController(IStudentRepository repository)
+        private IStudentRepository _repositoryStudent;
+
+        private ISubjectsRepository _repositorySubjects;
+
+        public StudentController(IStudentRepository repositoryStudent, ISubjectsRepository subjectsRepository)
         {
-            _repository = repository;
+            _repositoryStudent = repositoryStudent;
+            _repositorySubjects = subjectsRepository;
         }
 
         // get/student
@@ -26,14 +31,14 @@ namespace DotNetCoreWebAPI.Controllers
         [HttpGet]
         public IActionResult GetStudents()
         {
-            return Ok(_repository.GetStudents());
+            return Ok(_repositoryStudent.Gets());
         }
 
         [Route("api/[controller]/{id}")]
         [HttpGet]
         public IActionResult GetStudent(int id)
         {
-            var student = _repository.GetStudent(id);
+            var student = _repositoryStudent.Get(id);
 
             if (student != null)
             {
@@ -47,18 +52,18 @@ namespace DotNetCoreWebAPI.Controllers
         [HttpPost]
         public IActionResult GetStudent(Student student)
         {
-            _repository.AddStudent(student);
-            return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Path + "/" + student.id, student);
+            _repositoryStudent.Add(student);
+            return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Path + "/" + student.ID, student);
         }
 
         [Route("api/[controller]/{id}")]
         [HttpDelete]
         public IActionResult DeleteStudent(int id)
         {
-            var student = _repository.GetStudent(id);
+            var student = _repositoryStudent.Get(id);
             if (student != null)
             {
-                _repository.DeleteStudent(student);
+                _repositoryStudent.Delete(student);
 
                 return Ok();
             }
@@ -69,21 +74,32 @@ namespace DotNetCoreWebAPI.Controllers
         [HttpPut]
         public IActionResult UpdateStudent([FromBody]Student st)
         {
-            var student = _repository.GetStudent(st.id);
+            var student = _repositoryStudent.Get(st.ID);
             if (student != null)
             {
-            var newStudent = _repository.UpdateStudent(student, st);
+            var newStudent = _repositoryStudent.UpdateStudent(student, st);
 
                 return Ok(newStudent);
             }
-            return NotFound($"Student with Id:{st.id} was not found");
+            return NotFound($"Student with Id:{st.ID} was not found");
         }
 
         [Route("api/students-descending")]
         [HttpGet]
         public IActionResult GetListStudentDescending()
         {
-            return Ok(_repository.GetListStudentDescending());
+            return Ok(_repositoryStudent.GetListStudentDescending());
         }
+
+        [Route("api/GetSubjectByIDStudent/{id}")]
+        [HttpGet]
+        public IActionResult GetSubjectByIDStudent(int id) {
+            var student = _repositoryStudent.Get(id);
+            if (student != null)
+            {
+                return Ok(_repositorySubjects.GetSubjectByIDStudent(id));
+            }
+            return NotFound($"Subject with Id:{id} was not found");
+        } 
     }
 }
