@@ -91,7 +91,7 @@ namespace DotNetCoreWebAPI.Controllers
             return Ok(_repositoryStudent.GetListStudentDescending());
         }
 
-        [Route("api/GetSubjectByIDStudent/{id}")]
+        [Route("api/subject-by-id-student/{id}")]
         [HttpGet]
         public IActionResult GetSubjectByIDStudent(int id) {
             var student = _repositoryStudent.Get(id);
