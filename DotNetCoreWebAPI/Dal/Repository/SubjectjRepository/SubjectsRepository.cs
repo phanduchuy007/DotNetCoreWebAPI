@@ -17,8 +17,30 @@ namespace DotNetCoreWebAPI.Dal.Repository.SubjectjRepository
 
         public IEnumerable<Subjects> GetSubjectByIDStudent(int id)
         {
-            var ListSubject = from subjects in _studentDataContext.Set<Subjects>() where subjects.IDStudent == id select subjects;
-
+            var ListSubject = (from subjects in _studentDataContext.Set<Subjects>() where subjects.IDStudent == id select subjects).ToList();
+           /* List<Subjects> newListSubject = new List<Subjects>();
+            Subjects sub;
+            foreach (var item in ListSubject)
+            {
+                if (item.Mark == null)
+                {
+                    sub = new Subjects()
+                    {
+                        ID = item.ID,
+                        IDStudent = item.IDStudent,
+                        Subject = item.Subject,
+                        Teacher = item.Teacher,
+                        Classroom = item.Classroom,
+                        Mark = 0
+                    };
+                    newListSubject.Add(sub);
+                }
+                else
+                {
+                    newListSubject.Add(item);
+                }
+               
+            }*/
             return ListSubject;
         }
     }
