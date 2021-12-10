@@ -86,9 +86,9 @@ namespace DotNetCoreWebAPI.Controllers
 
         [Route("api/students-ascending")]
         [HttpGet]
-        public IActionResult GetListStudentDescending()
+        public IActionResult GetListStudentAscending()
         {
-            return Ok(_repositoryStudent.GetListStudentDescending());
+            return Ok(_repositoryStudent.GetListStudentAscending());
         }
 
         [Route("api/subject-by-id-student/{id}")]

@@ -9,7 +9,7 @@ namespace DotNetCoreWebAPI.Dal.Repository
 {
     public interface IStudentRepository:IRepository<Student>
     {
-        IEnumerable<Student> GetListStudentDescending();
+        IEnumerable<Student> GetListStudentAscending();
         Student UpdateStudent(Student student, Student studentUpdate);
     }
 }

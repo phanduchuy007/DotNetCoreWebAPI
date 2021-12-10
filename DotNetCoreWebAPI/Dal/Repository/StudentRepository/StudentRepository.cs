@@ -16,7 +16,7 @@ namespace DotNetCoreWebAPI.Dal.Repository
             _studentContext = studentContext;
         }
 
-        public IEnumerable<Student> GetListStudentDescending()
+        public IEnumerable<Student> GetListStudentAscending()
         {
             var ListStudent = _studentContext.Set<Student>().ToList();
             var student = ListStudent.OrderBy(st => st.Name);
