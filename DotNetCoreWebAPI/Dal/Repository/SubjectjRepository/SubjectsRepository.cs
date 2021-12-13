@@ -18,7 +18,7 @@ namespace DotNetCoreWebAPI.Dal.Repository.SubjectjRepository
         public IEnumerable<Subjects> GetSubjectByIDStudent(int id)
         {
             var ListSubject = (from subjects in _studentDataContext.Set<Subjects>() where subjects.IDStudent == id select subjects).ToList();
-           /* List<Subjects> newListSubject = new List<Subjects>();
+            /*List<Subjects> newListSubject = new List<Subjects>();
             Subjects sub;
             foreach (var item in ListSubject)
             {
@@ -39,7 +39,7 @@ namespace DotNetCoreWebAPI.Dal.Repository.SubjectjRepository
                 {
                     newListSubject.Add(item);
                 }
-               
+
             }*/
             return ListSubject;
         }

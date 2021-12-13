@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DotNetCoreWebAPI.Dal.Repository;
 using DotNetCoreWebAPI.Dal.Repository.Generic;
 using DotNetCoreWebAPI.Dal.Repository.SubjectjRepository;
+using DotNetCoreWebAPI.Dal.UnitOfWork;
 using DotNetCoreWebAPI.Models;
 using DotNetCoreWebAPI.Repository;
 using DotNetCoreWebAPI.StudentData;
@@ -39,6 +40,8 @@ namespace DotNetCoreWebAPI
             services.AddScoped<IStudentRepository, StudentRepository>();
 
             services.AddScoped<ISubjectsRepository, SubjectsRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork > ();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
