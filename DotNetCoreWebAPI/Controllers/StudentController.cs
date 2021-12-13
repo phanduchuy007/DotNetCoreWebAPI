@@ -18,7 +18,6 @@ namespace DotNetCoreWebAPI.Controllers
     {
         // private IStudentData _studentData;
         // private IStudentRepository _repositoryStudent;
-
         // private ISubjectsRepository _repositorySubjects;
 
         private IUnitOfWork _unitOfWork;
@@ -61,6 +60,8 @@ namespace DotNetCoreWebAPI.Controllers
         public IActionResult GetStudent(Student student)
         {
             _unitOfWork.Student.Add(student);
+            _unitOfWork.Submit();
+
             return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Path + "/" + student.ID, student);
         }
 
@@ -72,6 +73,7 @@ namespace DotNetCoreWebAPI.Controllers
             if (student != null)
             {
                 _unitOfWork.Student.Delete(student);
+                _unitOfWork.Submit();
 
                 return Ok();
             }
@@ -86,6 +88,7 @@ namespace DotNetCoreWebAPI.Controllers
             if (student != null)
             {
             var newStudent = _unitOfWork.Student.UpdateStudent(student, st);
+                _unitOfWork.Submit();
 
                 return Ok(newStudent);
             }

@@ -37,9 +37,9 @@ namespace DotNetCoreWebAPI
 
             services.AddDbContextPool<StudentDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("StudentConnection")));
 
-            services.AddScoped<IStudentRepository, StudentRepository>();
+            /*services.AddScoped<IStudentRepository, StudentRepository>();
 
-            services.AddScoped<ISubjectsRepository, SubjectsRepository>();
+            services.AddScoped<ISubjectsRepository, SubjectsRepository>();*/
 
             services.AddScoped<IUnitOfWork, UnitOfWork > ();
         }

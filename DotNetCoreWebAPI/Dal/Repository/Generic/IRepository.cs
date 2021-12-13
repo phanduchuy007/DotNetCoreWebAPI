@@ -11,5 +11,6 @@ namespace DotNetCoreWebAPI.Dal.Repository.Generic
         List<T> Gets();
         T Add(T obj);
         void Delete(T obj);
+        void SaveChanges();
     }
 }

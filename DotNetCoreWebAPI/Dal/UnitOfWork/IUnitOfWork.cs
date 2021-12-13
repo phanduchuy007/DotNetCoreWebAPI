@@ -11,5 +11,6 @@ namespace DotNetCoreWebAPI.Dal.UnitOfWork
     {
         IStudentRepository Student { get; }
         ISubjectsRepository Subject { get; }
+        void Submit();
     }
 }

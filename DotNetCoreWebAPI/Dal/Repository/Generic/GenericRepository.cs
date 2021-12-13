@@ -20,14 +20,13 @@ namespace DotNetCoreWebAPI.Repository
         public T Add(T obj)
         {
             _studentContext.Set<T>().Add(obj);
-            _studentContext.SaveChanges();
+
             return obj;
         }
 
         public void Delete(T obj)
         {
             _studentContext.Set<T>().Remove(obj);
-            _studentContext.SaveChanges();
         }
 
         public T Get(int id)
@@ -38,6 +37,11 @@ namespace DotNetCoreWebAPI.Repository
         public List<T> Gets()
         {
             return _studentContext.Set<T>().ToList();          
+        }
+
+        public void SaveChanges()
+        {
+            _studentContext.SaveChanges();
         }
     }
 }

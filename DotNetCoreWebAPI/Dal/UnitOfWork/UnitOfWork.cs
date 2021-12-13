@@ -34,5 +34,10 @@ namespace DotNetCoreWebAPI.Dal.UnitOfWork
                 return _subjectsRepository ?? (_subjectsRepository = new SubjectsRepository(_dbContext));
             }
         }
+
+        public void Submit()
+        {
+            _dbContext.SaveChanges();
+        }
     }
 }
