@@ -73,5 +73,44 @@ namespace DotNetCoreWebAPI.Services
                 }
             }
         }
+
+        public void DeleteDataStudent(int id)
+        {
+            using (var dbStudentTransaction = _studentData.Database.BeginTransaction())
+            {
+                try
+                {
+                    var student = (from st in _studentRepository.Gets() where st.ID == id select st).FirstOrDefault();
+                    
+                    if (student != null)
+                    {
+                        var subject = (from st in _subjectsRepository.Gets() where st.IDStudent == student.ID select st).ToList();
+
+                        if (subject != null)
+                        {
+                            foreach (var sub in subject)
+                            {
+                                _subjectsRepository.Delete(sub);
+                            }                         
+                            _subjectsRepository.SaveChanges();
+
+                            _studentRepository.Delete(student);
+                            _studentRepository.SaveChanges();
+                        }
+                        else
+                        {
+                            _studentRepository.Delete(student);
+                            _studentRepository.SaveChanges();
+                        }
+                    }
+                    dbStudentTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    dbStudentTransaction.Rollback();
+                    throw;
+                }
+            }
+        }
     }
 }

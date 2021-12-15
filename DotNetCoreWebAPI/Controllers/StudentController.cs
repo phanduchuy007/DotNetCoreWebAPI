@@ -140,5 +140,13 @@ namespace DotNetCoreWebAPI.Controllers
 
             return Ok();
         }
+
+        [Route("api/delete-data-student/{id}")]
+        [HttpDelete]
+        public IActionResult DeleteDataStudent(int id)
+        {
+            _addStudentSubject.DeleteDataStudent(id);
+            return Ok();
+        }
     }
 }
