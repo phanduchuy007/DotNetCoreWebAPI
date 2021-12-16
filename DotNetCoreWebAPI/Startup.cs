@@ -44,7 +44,7 @@ namespace DotNetCoreWebAPI
 
             services.AddScoped<IUnitOfWork, UnitOfWork > ();
 
-            services.AddScoped<AddStudentSubject> ();
+            services.AddScoped<Service> ();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

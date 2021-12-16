@@ -21,9 +21,9 @@ namespace DotNetCoreWebAPI.Controllers
         /*private IStudentRepository _repositoryStudent;
         private ISubjectsRepository _repositorySubjects;*/
         private IUnitOfWork _unitOfWork;
-        private AddStudentSubject _addStudentSubject;
+        private Service _addStudentSubject;
 
-        public StudentController(IUnitOfWork unitOfWork, AddStudentSubject addStudentSubject)
+        public StudentController(IUnitOfWork unitOfWork, Service addStudentSubject)
         {
             _unitOfWork = unitOfWork;
             _addStudentSubject = addStudentSubject;

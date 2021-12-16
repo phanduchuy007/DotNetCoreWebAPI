@@ -8,13 +8,13 @@ using DotNetCoreWebAPI.Models;
 
 namespace DotNetCoreWebAPI.Services
 {
-    public class AddStudentSubject
+    public class Service
     {
         StudentDataContext _studentData;
         IStudentRepository _studentRepository;
         ISubjectsRepository _subjectsRepository;
 
-        public AddStudentSubject(IStudentRepository studentRepository, ISubjectsRepository subjectsRepository, StudentDataContext studentData)
+        public Service(IStudentRepository studentRepository, ISubjectsRepository subjectsRepository, StudentDataContext studentData)
         {
             _studentData = studentData;
             _studentRepository = studentRepository;
@@ -84,7 +84,7 @@ namespace DotNetCoreWebAPI.Services
                     
                     if (student != null)
                     {
-                        var subject = (from st in _subjectsRepository.Gets() where st.IDStudent == student.ID select st).ToList();
+                        var subject = (from sub in _subjectsRepository.Gets() where sub.IDStudent == student.ID select sub).ToList();
 
                         if (subject != null)
                         {
