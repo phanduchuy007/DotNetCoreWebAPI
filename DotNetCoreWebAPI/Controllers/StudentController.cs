@@ -145,8 +145,13 @@ namespace DotNetCoreWebAPI.Controllers
         [HttpDelete]
         public IActionResult DeleteDataStudent(int id)
         {
-            _addStudentSubject.DeleteDataStudent(id);
-            return Ok();
+            var student = _unitOfWork.Student.Get(id);
+            if (student != null)
+            {
+                _addStudentSubject.DeleteDataStudent(id);
+                return Ok();
+            }
+            return NotFound($"Subject with Id:{id} was not found");
         }
     }
 }

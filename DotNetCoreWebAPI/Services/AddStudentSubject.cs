@@ -14,10 +14,10 @@ namespace DotNetCoreWebAPI.Services
         IStudentRepository _studentRepository;
         ISubjectsRepository _subjectsRepository;
 
-        public AddStudentSubject(IStudentRepository repositoryStudent, ISubjectsRepository subjectsRepository, StudentDataContext studentData)
+        public AddStudentSubject(IStudentRepository studentRepository, ISubjectsRepository subjectsRepository, StudentDataContext studentData)
         {
             _studentData = studentData;
-            _studentRepository = repositoryStudent;
+            _studentRepository = studentRepository;
             _subjectsRepository = subjectsRepository;
         }
 
