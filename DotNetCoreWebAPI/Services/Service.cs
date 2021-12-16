@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DotNetCoreWebAPI.Dal.Repository;
 using DotNetCoreWebAPI.Dal.Repository.SubjectjRepository;
+using DotNetCoreWebAPI.Dal.UnitOfWork;
 using DotNetCoreWebAPI.Models;
 
 namespace DotNetCoreWebAPI.Services
@@ -12,13 +13,13 @@ namespace DotNetCoreWebAPI.Services
     {
         StudentDataContext _studentData;
         IStudentRepository _studentRepository;
-        ISubjectsRepository _subjectsRepository;
+        IUnitOfWork _unitOfWork;
 
-        public Service(IStudentRepository studentRepository, ISubjectsRepository subjectsRepository, StudentDataContext studentData)
+        public Service(StudentDataContext studentData, IStudentRepository studentRepository, IUnitOfWork unitOfWork)
         {
-            _studentData = studentData;
-            _studentRepository = studentRepository;
-            _subjectsRepository = subjectsRepository;
+           _studentData = studentData;
+           _studentRepository = studentRepository;
+           _unitOfWork = unitOfWork;
         }
 
         public void AddTable(Operation operation)
@@ -27,21 +28,21 @@ namespace DotNetCoreWebAPI.Services
             {
                 try
                 {
-                    var student = (from st in _studentRepository.Gets() where st.Email == operation.Email select st).FirstOrDefault();
+                    var student = (from st in _studentData.tblStudent.ToList() where st.Email == operation.Email select st).FirstOrDefault();
 
                     if (student == null)
                     {
-                        _studentRepository.Add(new Student()
+                        _studentData.tblStudent.Add(new Student()
                         {
                             Name = operation.Name,
                             Address = operation.Address,
                             Email = operation.Email
                         });
-                        _studentRepository.SaveChanges();
+                        _studentData.SaveChanges();
 
-                        var checkStudent = (from st in _studentRepository.Gets() where st.Email == operation.Email select st).FirstOrDefault();
+                        var checkStudent = (from st in _studentData.tblStudent.ToList() where st.Email == operation.Email select st).FirstOrDefault();
 
-                        _subjectsRepository.Add(new Subjects()
+                        _studentData.tblSubject.Add(new Subjects()
                         {
                             IDStudent = checkStudent.ID,
                             Subject = operation.Subject,
@@ -49,12 +50,12 @@ namespace DotNetCoreWebAPI.Services
                             Classroom = operation.Classroom,
                             Mark = operation.Mark
                         });
-                        _subjectsRepository.SaveChanges();
+                        _studentData.SaveChanges();
                     }
 
                     if (student != null)
                     {
-                        _subjectsRepository.Add(new Subjects()
+                        _studentData.tblSubject.Add(new Subjects()
                         {
                             IDStudent = student.ID,
                             Subject = operation.Subject,
@@ -62,7 +63,7 @@ namespace DotNetCoreWebAPI.Services
                             Classroom = operation.Classroom,
                             Mark = operation.Mark
                         });
-                        _subjectsRepository.SaveChanges();
+                        _studentData.SaveChanges();
                     }     
 
                     dbStudentTransaction.Commit();
@@ -80,27 +81,29 @@ namespace DotNetCoreWebAPI.Services
             {
                 try
                 {
-                    var student = (from st in _studentRepository.Gets() where st.ID == id select st).FirstOrDefault();
+                    var student = (from st in _studentData.tblStudent where st.ID == id select st).FirstOrDefault();
                     
                     if (student != null)
                     {
-                        var subject = (from sub in _subjectsRepository.Gets() where sub.IDStudent == student.ID select sub).ToList();
+                        var subject = (from sub in _studentData.tblSubject.ToList() where sub.IDStudent == student.ID select sub).ToList();
 
                         if (subject != null)
                         {
                             foreach (var sub in subject)
                             {
-                                _subjectsRepository.Delete(sub);
+                                _studentData.tblSubject.Remove(sub);
+                                /*var a = ((StudentRepository)_studentRepository)._studentContext;
+                                var b = _studentData;*/
                             }                         
-                            _subjectsRepository.SaveChanges();
+                            _studentData.SaveChanges();
 
-                            _studentRepository.Delete(student);
-                            _studentRepository.SaveChanges();
+                            _studentData.tblStudent.Remove(student);
+                            _studentData.SaveChanges();
                         }
                         else
                         {
-                            _studentRepository.Delete(student);
-                            _studentRepository.SaveChanges();
+                            _studentData.tblStudent.Remove(student);
+                            _studentData.SaveChanges();
                         }
                     }
                     dbStudentTransaction.Commit();

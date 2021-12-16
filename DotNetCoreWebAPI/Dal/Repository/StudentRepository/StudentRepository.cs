@@ -10,7 +10,7 @@ namespace DotNetCoreWebAPI.Dal.Repository
 {
     public class StudentRepository : GenericRepository<Student>, IStudentRepository
     {
-        StudentDataContext _studentContext;
+        public StudentDataContext _studentContext;
         public StudentRepository(StudentDataContext studentContext):base(studentContext)
         {
             _studentContext = studentContext;
