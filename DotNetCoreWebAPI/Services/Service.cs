@@ -12,13 +12,11 @@ namespace DotNetCoreWebAPI.Services
     public class Service
     {
         StudentDataContext _studentData;
-        IStudentRepository _studentRepository;
         IUnitOfWork _unitOfWork;
 
-        public Service(StudentDataContext studentData, IStudentRepository studentRepository, IUnitOfWork unitOfWork)
+        public Service(StudentDataContext studentData, IUnitOfWork unitOfWork)
         {
            _studentData = studentData;
-           _studentRepository = studentRepository;
            _unitOfWork = unitOfWork;
         }
 
@@ -28,21 +26,21 @@ namespace DotNetCoreWebAPI.Services
             {
                 try
                 {
-                    var student = (from st in _studentData.tblStudent.ToList() where st.Email == operation.Email select st).FirstOrDefault();
+                    var student = (from st in _unitOfWork.Student.Gets() where st.Email == operation.Email select st).FirstOrDefault();
 
                     if (student == null)
                     {
-                        _studentData.tblStudent.Add(new Student()
+                        _unitOfWork.Student.Add(new Student()
                         {
                             Name = operation.Name,
                             Address = operation.Address,
                             Email = operation.Email
                         });
-                        _studentData.SaveChanges();
+                        _unitOfWork.Submit();
 
-                        var checkStudent = (from st in _studentData.tblStudent.ToList() where st.Email == operation.Email select st).FirstOrDefault();
+                        var checkStudent = (from st in _unitOfWork.Student.Gets() where st.Email == operation.Email select st).FirstOrDefault();
 
-                        _studentData.tblSubject.Add(new Subjects()
+                        _unitOfWork.Subject.Add(new Subjects()
                         {
                             IDStudent = checkStudent.ID,
                             Subject = operation.Subject,
@@ -50,12 +48,12 @@ namespace DotNetCoreWebAPI.Services
                             Classroom = operation.Classroom,
                             Mark = operation.Mark
                         });
-                        _studentData.SaveChanges();
+                        _unitOfWork.Submit();
                     }
 
                     if (student != null)
                     {
-                        _studentData.tblSubject.Add(new Subjects()
+                        _unitOfWork.Subject.Add(new Subjects()
                         {
                             IDStudent = student.ID,
                             Subject = operation.Subject,
@@ -63,7 +61,7 @@ namespace DotNetCoreWebAPI.Services
                             Classroom = operation.Classroom,
                             Mark = operation.Mark
                         });
-                        _studentData.SaveChanges();
+                        _unitOfWork.Submit();
                     }     
 
                     dbStudentTransaction.Commit();
@@ -81,29 +79,27 @@ namespace DotNetCoreWebAPI.Services
             {
                 try
                 {
-                    var student = (from st in _studentData.tblStudent where st.ID == id select st).FirstOrDefault();
+                    var student = (from st in _unitOfWork.Student.Gets() where st.ID == id select st).FirstOrDefault();
                     
                     if (student != null)
                     {
-                        var subject = (from sub in _studentData.tblSubject.ToList() where sub.IDStudent == student.ID select sub).ToList();
+                        var subject = (from sub in _unitOfWork.Subject.Gets() where sub.IDStudent == student.ID select sub).ToList();
 
                         if (subject != null)
                         {
                             foreach (var sub in subject)
                             {
-                                _studentData.tblSubject.Remove(sub);
-                                /*var a = ((StudentRepository)_studentRepository)._studentContext;
-                                var b = _studentData;*/
-                            }                         
-                            _studentData.SaveChanges();
+                                _unitOfWork.Subject.Delete(sub);
+                            }
+                            _unitOfWork.Submit();
 
-                            _studentData.tblStudent.Remove(student);
-                            _studentData.SaveChanges();
+                            _unitOfWork.Student.Delete(student);
+                            _unitOfWork.Submit();
                         }
                         else
                         {
-                            _studentData.tblStudent.Remove(student);
-                            _studentData.SaveChanges();
+                            _unitOfWork.Student.Delete(student);
+                            _unitOfWork.Submit();
                         }
                     }
                     dbStudentTransaction.Commit();
