@@ -96,7 +96,8 @@ namespace DotNetCoreWebAPI.Services
                             _unitOfWork.Student.Delete(student);
                             _unitOfWork.Submit();
                         }
-                        else
+
+                        if(subject == null)
                         {
                             _unitOfWork.Student.Delete(student);
                             _unitOfWork.Submit();
