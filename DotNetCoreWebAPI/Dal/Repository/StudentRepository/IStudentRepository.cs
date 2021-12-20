@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using DotNetCoreWebAPI.Dal.Repository.Generic;
 using DotNetCoreWebAPI.Models;
 
-namespace DotNetCoreWebAPI.Dal.Repository
+namespace DotNetCoreWebAPI.Dal.Repository.StudentRepository
 {
-    public interface IStudentRepository:IRepository<Student>
+    public interface IStudentRepository : IRepository<Student>
     {
         IEnumerable<Student> GetListStudentAscending();
         Student UpdateStudent(Student student, Student studentUpdate);

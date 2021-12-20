@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DotNetCoreWebAPI.Dal.Repository.Generic;
 using DotNetCoreWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DotNetCoreWebAPI.Repository
+namespace DotNetCoreWebAPI.Dal.Repository.Generic
 {
-    public class GenericRepository<T> : IRepository<T> where T:class
+    public class GenericRepository<T> : IRepository<T> where T : class
     {
         StudentDataContext _studentContext;
 
@@ -36,7 +35,7 @@ namespace DotNetCoreWebAPI.Repository
 
         public List<T> Gets()
         {
-            return _studentContext.Set<T>().ToList();          
+            return _studentContext.Set<T>().ToList();
         }
 
         public void SaveChanges()

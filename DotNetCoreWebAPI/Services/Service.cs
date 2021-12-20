@@ -69,6 +69,7 @@ namespace DotNetCoreWebAPI.Services
                 catch (Exception)
                 {
                     dbStudentTransaction.Rollback();
+                    throw;
                 }
             }
         }
@@ -111,6 +112,25 @@ namespace DotNetCoreWebAPI.Services
                     throw;
                 }
             }
+        }
+
+        public IEnumerable<Operation> FilterStudentByMark(double mark)
+        {
+            var student = from st in _studentData.tblStudent
+                          join sub in _studentData.tblSubject on st.ID equals sub.IDStudent
+                          where sub.Mark >= mark
+                          select new Operation
+                          {
+                              Name = st.Name,
+                              Address = st.Address,
+                              Email = st.Email,
+                              Subject = sub.Subject,
+                              Teacher = sub.Teacher,
+                              Classroom = sub.Classroom,
+                              Mark = sub.Mark
+                          };
+
+            return student;
         }
     }
 }

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DotNetCoreWebAPI.Dal.Repository.Generic;
 using DotNetCoreWebAPI.Models;
-using DotNetCoreWebAPI.Repository;
 
 namespace DotNetCoreWebAPI.Dal.Repository.SubjectjRepository
 {

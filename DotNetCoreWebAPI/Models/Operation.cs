@@ -10,7 +10,6 @@ namespace DotNetCoreWebAPI.Models
         public string Name { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
-        public int IDStudent { get; set; }
         public string Subject { get; set; }
         public string Teacher { get; set; }
         public string Classroom { get; set; }

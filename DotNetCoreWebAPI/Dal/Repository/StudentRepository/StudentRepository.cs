@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DotNetCoreWebAPI.Dal.Repository.Generic;
 using DotNetCoreWebAPI.Models;
-using DotNetCoreWebAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace DotNetCoreWebAPI.Dal.Repository
+namespace DotNetCoreWebAPI.Dal.Repository.StudentRepository
 {
     public class StudentRepository : GenericRepository<Student>, IStudentRepository
     {
         StudentDataContext _studentContext;
-        public StudentRepository(StudentDataContext studentContext):base(studentContext)
+        public StudentRepository(StudentDataContext studentContext) : base(studentContext)
         {
             _studentContext = studentContext;
         }

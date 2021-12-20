@@ -21,12 +21,12 @@ namespace DotNetCoreWebAPI.Controllers
         /*private IStudentRepository _repositoryStudent;
         private ISubjectsRepository _repositorySubjects;*/
         private IUnitOfWork _unitOfWork;
-        private Service _addStudentSubject;
+        private Service _service;
 
-        public StudentController(IUnitOfWork unitOfWork, Service addStudentSubject)
+        public StudentController(IUnitOfWork unitOfWork, Service service)
         {
             _unitOfWork = unitOfWork;
-            _addStudentSubject = addStudentSubject;
+            _service = service;
         }
 
         // get/student
@@ -115,7 +115,7 @@ namespace DotNetCoreWebAPI.Controllers
         {
             // var dataContext = new StudentDataContext();
 
-            _addStudentSubject.AddTable(operation);
+            _service.AddTable(operation);
 
             /*_unitOfWork.Student.Add(new Student()
             {
@@ -148,10 +148,21 @@ namespace DotNetCoreWebAPI.Controllers
             var student = _unitOfWork.Student.Get(id);
             if (student != null)
             {
-                _addStudentSubject.DeleteDataStudent(id);
+                _service.DeleteDataStudent(id);
                 return Ok();
             }
             return NotFound($"Subject with Id:{id} was not found");
+        }
+
+        [Route("api/filter-student-by-mark/{mark}")]
+        [HttpGet]
+        public IActionResult FilterStudentByMark(double mark)
+        {
+            var student = _service.FilterStudentByMark(mark);
+
+            if (student != null) return Ok(student);
+
+            return NotFound($"There are no students");
         }
     }
 }

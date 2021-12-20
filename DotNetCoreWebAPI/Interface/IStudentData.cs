@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using DotNetCoreWebAPI.Models;
 
-namespace DotNetCoreWebAPI.StudentData
+namespace DotNetCoreWebAPI.Interface
 {
-  public interface IStudentData
+    public interface IStudentData
     {
         List<Student> GetStudents();
         Student GetStudent(int id);
