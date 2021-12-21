@@ -111,11 +111,11 @@ namespace DotNetCoreWebAPI.Controllers
 
         [Route("api/add-student-subject")]
         [HttpPost]
-        public IActionResult TestAdd(Operation operation)
+        public IActionResult AddDataTable(Operation operation)
         {
             // var dataContext = new StudentDataContext();
 
-            _service.AddTable(operation);
+            _service.AddDataTable(operation);
 
             /*_unitOfWork.Student.Add(new Student()
             {
