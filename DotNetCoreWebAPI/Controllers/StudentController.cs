@@ -141,6 +141,21 @@ namespace DotNetCoreWebAPI.Controllers
             return Ok();
         }
 
+        [Route("api/delete-subject/{id}")]
+        [HttpGet]
+        public IActionResult DeleteSubject(int id)
+        {
+            var subject = _unitOfWork.Subject.Get(id);
+            if (subject != null)
+            {
+                _unitOfWork.Subject.Delete(subject);
+                _unitOfWork.Submit();
+
+                return Ok();
+            }
+            return NotFound($"Subject with Id:{id} was not found");
+        }
+
         [Route("api/delete-data-student/{id}")]
         [HttpDelete]
         public IActionResult DeleteDataStudent(int id)
@@ -149,9 +164,10 @@ namespace DotNetCoreWebAPI.Controllers
             if (student != null)
             {
                 _service.DeleteDataStudent(id);
+
                 return Ok();
             }
-            return NotFound($"Subject with Id:{id} was not found");
+            return NotFound($"Student with Id:{id} was not found");
         }
 
         [Route("api/filter-student-by-mark/{mark}")]

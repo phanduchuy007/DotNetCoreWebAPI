@@ -21,6 +21,7 @@ namespace DotNetCoreWebAPI.Dal.Repository.StudentRepository
         {
             var ListStudent = _studentContext.Set<Student>().ToList();
             var student = ListStudent.OrderBy(st => st.Name);
+
             return student;
         }
 

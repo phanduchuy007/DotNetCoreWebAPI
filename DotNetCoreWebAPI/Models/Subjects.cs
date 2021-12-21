@@ -15,10 +15,13 @@ namespace DotNetCoreWebAPI.Models
         [Required]
         public int IDStudent { get; set; }
         [Required]
+        [StringLength(50)]
         public string Subject { get; set; }
         [Required]
+        [StringLength(50)]
         public string Teacher { get; set; }
         [Required]
+        [StringLength(50)]
         public string Classroom { get; set; }
         [Column(TypeName = "Float")]
         public double? Mark { get; set; }
