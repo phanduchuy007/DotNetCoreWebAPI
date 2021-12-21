@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DotNetCoreWebAPI.Dal.Repository.StudentRepository;
-using DotNetCoreWebAPI.Dal.Repository.SubjectjRepository;
 
-namespace DotNetCoreWebAPI.Dal.UnitOfWork
+namespace DotNetCoreWebAPI.Dal.Repository.Interface
 {
     public interface IUnitOfWork
     {

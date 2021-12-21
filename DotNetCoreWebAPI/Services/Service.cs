@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DotNetCoreWebAPI.Dal.Repository;
+using DotNetCoreWebAPI.Dal.Repository.Interface;
 using DotNetCoreWebAPI.Dal.Repository.SubjectjRepository;
-using DotNetCoreWebAPI.Dal.UnitOfWork;
 using DotNetCoreWebAPI.Models;
 
 namespace DotNetCoreWebAPI.Services

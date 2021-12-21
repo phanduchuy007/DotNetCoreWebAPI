@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DotNetCoreWebAPI.Dal.Repository.Generic;
 using DotNetCoreWebAPI.Models;
 
-namespace DotNetCoreWebAPI.Dal.Repository.SubjectjRepository
+namespace DotNetCoreWebAPI.Dal.Repository.Interface
 {
-    public interface ISubjectsRepository:IRepository<Subjects>
+    public interface ISubjectsRepository : IRepository<Subjects>
     {
         IEnumerable<Subjects> GetSubjectByIDStudent(int id);
     }

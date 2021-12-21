@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DotNetCoreWebAPI.Models;
 
-namespace DotNetCoreWebAPI.Interface
+namespace DotNetCoreWebAPI.Dal.Repository.Interface
 {
     public interface IStudentData
     {

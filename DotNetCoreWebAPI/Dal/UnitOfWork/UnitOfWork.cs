@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DotNetCoreWebAPI.Dal.Repository.Interface;
 using DotNetCoreWebAPI.Dal.Repository.StudentRepository;
 using DotNetCoreWebAPI.Dal.Repository.SubjectjRepository;
 using DotNetCoreWebAPI.Models;

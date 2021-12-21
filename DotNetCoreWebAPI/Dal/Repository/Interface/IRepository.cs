@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DotNetCoreWebAPI.Dal.Repository.Generic
+namespace DotNetCoreWebAPI.Dal.Repository.Interface
 {
-    public interface IRepository<T> where T :class
+    public interface IRepository<T> where T : class
     {
         T Get(int id);
         List<T> Gets();
