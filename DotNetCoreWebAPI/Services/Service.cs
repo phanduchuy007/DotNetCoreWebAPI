@@ -20,7 +20,7 @@ namespace DotNetCoreWebAPI.Services
            _unitOfWork = unitOfWork;
         }
 
-        public void AddTable(Operation operation)
+        public void AddDataTable(Operation operation)
         {
             using (var dbStudentTransaction = _studentData.Database.BeginTransaction())
             {
