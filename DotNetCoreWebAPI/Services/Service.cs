@@ -26,7 +26,8 @@ namespace DotNetCoreWebAPI.Services
             {
                 try
                 {
-                    var student = (from st in _unitOfWork.Student.Gets() where st.Email == operation.Email select st).FirstOrDefault();
+                    // var student = (from st in _unitOfWork.Student.Gets() where st.Email == operation.Email select st).FirstOrDefault();
+                    var student = _unitOfWork.Student.Gets().FirstOrDefault(st => st.Email == operation.Email);
 
                     if (student == null)
                     {
@@ -38,7 +39,8 @@ namespace DotNetCoreWebAPI.Services
                         });
                         _unitOfWork.Submit();
 
-                        var checkStudent = (from st in _unitOfWork.Student.Gets() where st.Email == operation.Email select st).FirstOrDefault();
+                        // var checkStudent = (from st in _unitOfWork.Student.Gets() where st.Email == operation.Email select st).FirstOrDefault();
+                        var checkStudent = _unitOfWork.Student.Gets().FirstOrDefault(st => st.Email == operation.Email);
 
                         _unitOfWork.Subject.Add(new Subjects()
                         {
@@ -80,11 +82,13 @@ namespace DotNetCoreWebAPI.Services
             {
                 try
                 {
-                    var student = (from st in _unitOfWork.Student.Gets() where st.ID == id select st).FirstOrDefault();
+                    // var student = (from st in _unitOfWork.Student.Gets() where st.ID == id select st).FirstOrDefault();
+                    var student = _unitOfWork.Student.Gets().FirstOrDefault(st => st.ID == id);
                     
                     if (student != null)
                     {
-                        var subject = (from sub in _unitOfWork.Subject.Gets() where sub.IDStudent == student.ID select sub).ToList();
+                        // var subject = (from sub in _unitOfWork.Subject.Gets() where sub.IDStudent == student.ID select sub).ToList();
+                        var subject = _unitOfWork.Subject.Gets().Where(sub => sub.IDStudent == student.ID).ToList();
 
                         if (subject != null)
                         {
@@ -116,7 +120,7 @@ namespace DotNetCoreWebAPI.Services
 
         public IEnumerable<Operation> FilterStudentByMark(double mark)
         {
-            var student = from st in _studentData.tblStudent
+            /*var student = from st in _studentData.tblStudent
                           join sub in _studentData.tblSubject on st.ID equals sub.IDStudent
                           where sub.Mark >= mark
                           select new Operation
@@ -128,7 +132,18 @@ namespace DotNetCoreWebAPI.Services
                               Teacher = sub.Teacher,
                               Classroom = sub.Classroom,
                               Mark = sub.Mark
-                          };
+                          };*/
+
+            var student = _studentData.tblStudent.Join(_studentData.tblSubject, st => st.ID, sub => sub.IDStudent, (st, sub) => new Operation
+            {
+                Name = st.Name,
+                Address = st.Address,
+                Email = st.Email,
+                Subject = sub.Subject,
+                Teacher = sub.Teacher,
+                Classroom = sub.Classroom,
+                Mark = sub.Mark
+            }).Where(sub => sub.Mark >= mark);
 
             return student;
         }

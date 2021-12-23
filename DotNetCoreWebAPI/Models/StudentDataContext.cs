@@ -14,5 +14,12 @@ namespace DotNetCoreWebAPI.Models
 
         public DbSet<Student> tblStudent { get; set; }
         public DbSet<Subjects> tblSubject { get; set; }
+
+        /*private string connectionString = "";
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseSqlServer(connectionString);
+        }*/
     }
 }
