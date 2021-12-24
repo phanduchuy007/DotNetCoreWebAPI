@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DotNetCoreWebAPI.Dal.Repository.Interface
 {
-    public interface IRepository<T> where T : class
+    public interface IGenericRepository<T> where T : class
     {
         T Get(int id);
         List<T> Gets();

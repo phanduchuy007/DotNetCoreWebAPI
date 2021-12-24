@@ -6,7 +6,7 @@ using DotNetCoreWebAPI.Models;
 
 namespace DotNetCoreWebAPI.Dal.Repository.Interface
 {
-    public interface IStudentRepository : IRepository<Student>
+    public interface IStudentRepository : IGenericRepository<Student>
     {
         IEnumerable<Student> GetListStudentAscending();
         Student UpdateStudent(Student student, Student studentUpdate);

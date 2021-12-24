@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DotNetCoreWebAPI.Dal.Repository.Generic
 {
-    public class GenericRepository<T> : IRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         StudentDataContext _studentContext;
 
