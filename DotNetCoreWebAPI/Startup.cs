@@ -36,6 +36,12 @@ namespace DotNetCoreWebAPI
         {
             services.AddControllers();
 
+            services.AddCors(options => {
+                // options.AddDefaultPolicy(builder => builder.AllowAnyOrigin());
+                // options.AddDefaultPolicy(builder => builder.WithOrigins("https://localhost:44380"));
+                options.AddPolicy("mypolicy", builder => builder.WithOrigins("https://localhost:44380"));
+            });
+
             services.AddDbContextPool<StudentDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("StudentConnection")));
 
             services.AddScoped<IStudentRepository, StudentRepository>();
@@ -58,6 +64,8 @@ namespace DotNetCoreWebAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

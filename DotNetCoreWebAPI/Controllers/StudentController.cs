@@ -9,6 +9,7 @@ using DotNetCoreWebAPI.Dal.Repository.SubjectjRepository;
 using DotNetCoreWebAPI.Models;
 using DotNetCoreWebAPI.Services;
 using DotNetCoreWebAPI.StudentData;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -170,6 +171,7 @@ namespace DotNetCoreWebAPI.Controllers
             return NotFound($"Student with Id:{id} was not found");
         }
 
+        [EnableCors("mypolicy")]
         [Route("api/filter-student-by-mark/{mark}")]
         [HttpGet]
         public IActionResult FilterStudentByMark(double mark)
