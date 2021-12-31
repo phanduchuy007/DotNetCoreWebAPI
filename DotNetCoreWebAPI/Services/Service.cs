@@ -134,7 +134,7 @@ namespace DotNetCoreWebAPI.Services
                               Mark = sub.Mark
                           };*/
 
-            var student = _studentData.tblStudent.Join(_studentData.tblSubject, st => st.ID, sub => sub.IDStudent, (st, sub) => new Operation
+            /*var student = _studentData.tblStudent.Join(_studentData.tblSubject.DefaultIfEmpty(), st => st.ID, sub => sub.IDStudent, (st, sub) => new Operation
             {
                 Name = st.Name,
                 Address = st.Address,
@@ -143,9 +143,40 @@ namespace DotNetCoreWebAPI.Services
                 Teacher = sub.Teacher,
                 Classroom = sub.Classroom,
                 Mark = sub.Mark
-            }).Where(sub => sub.Mark >= mark);
+            })
+            .Where(sub => sub.Mark >= mark);*/
 
-            return student;
+            var leftOuterJoin = _studentData.tblStudent.GroupJoin(_studentData.tblSubject, st => st.ID, sub => sub.IDStudent, (st, sub) => new { Student = st, Subject = sub })
+                          .SelectMany(op => op.Subject.DefaultIfEmpty(), (st, sub) => new { st.Student, Subject = sub })
+                          .Select(res => new Operation
+                          {
+                              Name = res.Student.Name,
+                              Address = res.Student.Address,
+                              Email = res.Student.Email,
+                              Subject = res.Subject.Subject,
+                              Teacher = res.Subject.Teacher,
+                              Classroom = res.Subject.Classroom,
+                              Mark = res.Subject.Mark
+                          })
+                          //.Where(sub => sub.Mark >= mark)
+                          ;
+
+            var rightOuterJoin = _studentData.tblSubject.GroupJoin(_studentData.tblStudent, sub => sub.IDStudent, st => st.ID, (sub, st) => new { Subject = sub, Student = st })
+                          .SelectMany(op => op.Student.DefaultIfEmpty(), (sub, st) => new { sub.Subject, Student = st })
+                          .Select(res => new Operation
+                          {
+                              Name = res.Student.Name,
+                              Address = res.Student.Address,
+                              Email = res.Student.Email,
+                              Subject = res.Subject.Subject,
+                              Teacher = res.Subject.Teacher,
+                              Classroom = res.Subject.Classroom,
+                              Mark = res.Subject.Mark
+                          });
+
+            var fullOuterJoin = leftOuterJoin.Union(rightOuterJoin);
+
+            return fullOuterJoin;
         }
     }
 }
